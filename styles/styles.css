@@ -6,6 +6,7 @@
 	--small-padding: 5px;
 	--medium-padding: 10px;
 	--big-padding: 15px;
+	--article-inverse-padding: -5px;
 
 	--overall-width: 800px;
 
@@ -17,6 +18,7 @@
 	--blue4: #026A9c;
 	--yellow1: #f5a201;
 	--yellow2: #ffba42;
+	--yellow3: #a69577;
 }
 
 body
@@ -25,10 +27,6 @@ body
 
 	margin: 0px;
 	padding: 0px;
-
-	font-family: var(--sans-serif-font);
-	font-weight: 700;
-	color: var(--yellow2);
 }
 
 .maindiv
@@ -84,7 +82,7 @@ body
 	padding: var(--medium-padding);
 
 	background-color: var(--blue3);
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 .newsite-div > div + div
@@ -165,8 +163,11 @@ a.article-link
 
 	margin: 0px;
 	padding: var(--small-padding);
+	padding-top: 0px;
+	padding-bottom: 0px;
 
-	background-color: cyan;
+	border-style: solid;
+	border-color: var(--blue3);
 	border-radius: 5px;
 }
 
@@ -176,6 +177,10 @@ h1, h2, h3, h4, h5, h6, p, summary
 	padding: var(--tiny-padding);
 	padding-top: 0px;
 	padding-bottom: 0px;
+
+	font-family: var(--sans-serif-font);
+	font-weight: 700;
+	color: var(--yellow2);
 }
 
 h1
@@ -190,6 +195,8 @@ h2
 
 .list-of-articles-dropdown > summary
 {
+	user-select: none;
+
 	font-size: 10px;
 }
 
@@ -198,9 +205,12 @@ h3
 	font-size: 10px;
 }
 
-h4
+.article-type, .article-date
 {
+	margin-top: var(--article-inverse-padding);
+
 	font-size: 7px;
+	color: var(--yellow3);
 }
 
 img
