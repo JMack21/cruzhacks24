@@ -1,16 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@400;500;700&display=swap');
+
 :root
 {
 	--small-padding: 1px;
 	--medium-padding: 5px;
 	--big-padding: 15px;
 
-	--sans-serif-font: sans-serif;
-	--monospace-font: monospace;
+	--sans-serif-font: 'Palanquin', sans-serif;
+
+	--blue1: #0b1e33;
+	--blue2: #013c58;
+	--blue3: #00537a;
+	--yellow1: #f5a201;
+	--yellow2: #ffba42;
 }
 
 body
 {
+	min-width: 800px;
+
 	font-family: var(--sans-serif-font);
+	font-weight: 700;
+	color: var(--yellow2);
 	
 	margin: 0px;
 	padding: 0px;
@@ -18,7 +29,7 @@ body
 
 .maindiv
 {
-	background-color: #a0a0a0;
+	background-color: #0b1e33;
 
 	margin: 0px;
 	padding: var(--medium-padding);
@@ -30,7 +41,7 @@ a
 	padding: 0px;
 
 	text-decoration: none;
-	color: #007070;
+	color: var(--yellow1);
 }
 
 h1
@@ -40,7 +51,6 @@ h1
 
 	font-family: var(--sans-serif-font);
 	font-size: 25px;
-	font-weight: normal;
 }
 
 h2
@@ -50,7 +60,6 @@ h2
 
 	font-family: var(--sans-serif-font);
 	font-size: 15px;
-	font-weight: normal;
 }
 
 h3
@@ -60,7 +69,6 @@ h3
 
 	font-family: var(--sans-serif-font);
 	font-size: 10px;
-	font-weight: normal;
 }
 
 h4
@@ -70,7 +78,6 @@ h4
 
 	font-family: var(--sans-serif-font);
 	font-size: 7px;
-	font-weight: normal;
 }
 
 .newsite-container
@@ -78,15 +85,13 @@ h4
 	margin: 0px;
 	padding: var(--medium-padding);
 
-	background-color: #802020;
+	background-color: #00537a;
 }
 
 .navbar
 {
 	margin: 0px;
 	padding: var(--medium-padding);
-
-	background-color: #208020;
 }
 
 .horiz-flexbox
@@ -96,8 +101,6 @@ h4
 
 	margin: 0px;
 	padding: 0px;
-
-	background-color: #3030e0;
 }
 
 .horiz-flexbox > div
@@ -115,7 +118,7 @@ h4
 	padding: 0px;
 	padding-top: var(--big-padding);
 
-	background-color: #707070;
+	background-color: #013c58;
 }
 
 .vert-flexbox > div
