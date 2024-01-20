@@ -9,6 +9,8 @@
 	--article-inverse-padding: -5px;
 
 	--overall-width: 800px;
+	--newsite-width: 200px;
+	--corner-rounding: 5px;
 
 	--sans-serif-font: 'Palanquin', sans-serif;
 
@@ -27,6 +29,11 @@ body
 
 	margin: 0px;
 	padding: 0px;
+}
+
+body::-webkit-scrollbar
+{
+	display: none;
 }
 
 .maindiv
@@ -78,11 +85,14 @@ body
 	display: flex;
 	flex-direction: column;
 
+	min-width: var(--newsite-width);
+	max-width: var(--newsite-width);
+
 	margin: 0px;
 	padding: var(--medium-padding);
 
 	background-color: var(--blue3);
-	border-radius: 5px;
+	border-radius: var(--corner-rounding);
 }
 
 .newsite-div > div + div
@@ -120,7 +130,7 @@ body
 	padding: var(--small-padding);
 
 	background-color: var(--blue4);
-	border-radius: 5px;
+	border-radius: var(--corner-rounding);
 }
 
 .list-of-articles-dropdown
@@ -128,8 +138,6 @@ body
 	margin: 0px;
 	padding: 0px;
 }
-
-
 
 .list-of-articles-div
 {
@@ -168,7 +176,7 @@ a.article-link
 
 	border-style: solid;
 	border-color: var(--blue3);
-	border-radius: 5px;
+	border-radius: var(--corner-rounding);
 }
 
 h1, h2, h3, h4, h5, h6, p, summary
