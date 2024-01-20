@@ -1,0 +1,12 @@
+{
+	"manifest_version": 3,
+	"name": "CruzHacks24 Project",
+	"description": "Placeholder description for CruzHacks24 Project",
+	"version": "1.0.0",
+	"author": "Placeholder Author",
+	"action":
+	{
+		"default_popup": "index.html",
+		"default_title": "Cool Fun Project"
+	}
+}
