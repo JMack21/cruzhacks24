@@ -4,6 +4,10 @@
 	"description": "Placeholder description for CruzHacks24 Project",
 	"version": "1.0.0",
 	"author": "Placeholder Author",
+	"permissions":
+	[
+		"activeTab"
+	],
 	"action":
 	{
 		"default_popup": "index.html",
