@@ -11,7 +11,7 @@ async function getGoogleSearchResults(siteName, articleTitle) {
       const links = [];
 	  $('a').each((index, element) => {
 		const link = $(element).attr('href');
-		if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName))) && !link.includes(link)) {
+		if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
 		  links.push(link);
 		}
 	  });
