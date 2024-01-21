@@ -1,10 +1,13 @@
 
 const exampleAddingSites = require('./scripts/ui/exampleAddingSites')
 
-function mainfunc()
+async function mainfunc()
 {
 	console.log('mainfunc() is working');
-	exampleAddingSites.thing();
+	await exampleAddingSites.thing();
+	console.log('mainfunc() after got');
 }
 
-mainfunc();
+(async () => {
+	mainfunc();
+})();
