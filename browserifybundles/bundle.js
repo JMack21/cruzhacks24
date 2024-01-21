@@ -1,17 +1,70 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
-const mainNewsSites = require('./scripts/ui/mainNewsSites')
+const mainNewsSites = require('./scripts/ui/mainNewsSites');
+const articlestuff = require('./scripts/webscraping/articlestuff');
+const googlesearching = require('./scripts/webscraping/googlesearching');
+const uistuff = require('./scripts/ui/uistuff');
+const googlesearch = require('./scripts/webscraping/googlesearch');
 
 async function mainfunc()
 {
-	await mainNewsSites.addMainNewsSites();
+	chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
+	{
+		let u = tabs[0].url;
+		onGottenPageUrl(u);
+	});
+
+}
+
+async function onGottenPageUrl(theUrl)
+{
+	await new Promise(r => setTimeout(r, 5000));
+
+	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
+	console.log('Article Title Maybe: ' + subjArticleTitle);
+
+	await new Promise(r => setTimeout(r, 5000));
+
+	const farLeft = uistuff.createNewNewsite("FarLeftSite");
+	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
+
+	const slightLeft = uistuff.createNewNewsite("New York Times");
+	uistuff.addBiasLineToNewsite(slightLeft, "images/bias_slight_left.png", "Slight Left Leaning");
+
+	const centrist = uistuff.createNewNewsite("Big British Company");
+	uistuff.addBiasLineToNewsite(centrist, "images/bias_centrist.png", "Mainly Centrist");
+
+	const slightRight = uistuff.createNewNewsite("SlightRightSite");
+	uistuff.addBiasLineToNewsite(slightRight, "images/bias_slight_right.png", "Slight Right Leaning");
+
+	const farRight = uistuff.createNewNewsite("FarRightSite");
+	uistuff.addBiasLineToNewsite(farRight, "images/bias_far_right.png", "Far Right Leaning");
+
+	let sites = [[farLeft, ''], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, ''], [farRight, '']];
+
+	for (let i = 0; i < sites.length; i++)
+	{
+		const siteElm = sites[i][0];
+		const siteStr = sites[i][1];
+
+		let searchResults = await googlesearch.getGoogleSearchResults(siteStr, subjArticleTitle);
+		console.log(searchResults);
+		await new Promise(r => setTimeout(r, 500));
+
+		for (let j = 0; j < searchResults.length; j++)
+		{
+			uistuff.addArticleToNewsite(siteElm, searchResults[j], await articlestuff.getArticleTitle(searchResults[j]), 'Jan 0, 0000');
+			await new Promise(r => setTimeout(r, 500));
+		}
+
+		await new Promise(r => setTimeout(r, 500));
+	}
 }
 
 (async () => {
-	mainfunc();
+    mainfunc();
 })();
-
-},{"./scripts/ui/mainNewsSites":137}],2:[function(require,module,exports){
+},{"./scripts/ui/mainNewsSites":137,"./scripts/ui/uistuff":138,"./scripts/webscraping/articlestuff":139,"./scripts/webscraping/googlesearch":140,"./scripts/webscraping/googlesearching":141}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23931,4 +23984,59 @@ async function getArticleTitle(url) {
   return articleTitle;
 }
 
-},{"axios":2,"cheerio":58}]},{},[1]);
+},{"axios":2,"cheerio":58}],140:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getGoogleSearchResults = getGoogleSearchResults;
+var _axios = _interopRequireDefault(require("axios"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const cheerio = require('cheerio');
+const googleSearching = require('./googlesearching');
+async function getGoogleSearchResults(siteName, articleTitle) {
+  try {
+    const response = await _axios.default.get(`https://cors-anywhere.herokuapp.com/`.concat(await googleSearching.generateGoogleSearchUrl(siteName, articleTitle)));
+    // Extract links from the search results
+    const $ = cheerio.load(response.data);
+    const links = [];
+    $('a').each((index, element) => {
+      const link = $(element).attr('href');
+      if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
+        links.push(link);
+      }
+    });
+    // Return the first few links
+    const numberOfLinks = 3; // Adjust this number as needed
+    //console.log("Length of links:", links.length)
+    //console.log('First few links from search result:', links[0], links[1], links[2]);
+    return links.slice(0, numberOfLinks);
+  } catch (error) {
+    console.error('Error fetching search results:', error.message);
+    //return [];
+  }
+}
+
+},{"./googlesearching":141,"axios":2,"cheerio":58}],141:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.generateGoogleSearchUrl = generateGoogleSearchUrl;
+async function generateGoogleSearchUrl(siteName, articleTitle) {
+  let newTitleA = '' + articleTitle.replaceAll(' ', '+');
+  let newTitleB = '';
+  for (let i = 0; i < newTitleA.length; i++) {
+    if (newTitleA.charAt(i).match(/[a-zA-Z0-9\+]/i)) {
+      newTitleB += newTitleA.charAt(i);
+    }
+  }
+  let ret = 'https://www.bing.com/search?q=';
+  ret += siteName;
+  ret += '+' + newTitleB;
+  return ret;
+}
+
+},{}]},{},[1]);
