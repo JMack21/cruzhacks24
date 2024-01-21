@@ -53,6 +53,7 @@ async function onGottenPageUrl(theUrl)
 		for (let j = 0; j < searchResults.length; j++)
 		{
 			uistuff.addArticleToNewsite(siteElm, searchResults[j], await articlestuff.getArticleTitle(searchResults[j]), 'Jan 0, 0000');
+			await new Promise(r => setTimeout(r, 500));
 		}
 
 		await new Promise(r => setTimeout(r, 500));
