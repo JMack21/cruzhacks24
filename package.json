@@ -1,0 +1,22 @@
+{
+	"name": "banana-bulletin",
+	"version": "0.1.0",
+	"description": "Placeholder description",
+	"author": "PlaceholderAuthor",
+	"license": "PlaceholderLicense",
+	"main": "mainscript.js",
+	"scripts":
+	{
+		"build": "browserify mainscript.js -p esmify > browserifybundles/bundle.js"
+	},
+	"dependencies":
+	{
+		"axios": "^1.6.5",
+		"cheerio": "^1.0.0-rc.12"
+	},
+	"devDependencies":
+	{
+		"browserify": "^17.0.0",
+		"esmify": "^2.1.1"
+	}
+}
