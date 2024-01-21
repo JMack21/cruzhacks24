@@ -31,6 +31,7 @@ function PoliticalStance(source){
     article = article.replaceAll(" ", "");
     console.log(article);
     return PoliLean[article];
+    //meow
 }
 
 //console.log(PoliticalStance('Buzz Fee d'));
