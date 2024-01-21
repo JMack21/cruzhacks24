@@ -1,20 +1,20 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
 const mainNewsSites = require('./scripts/ui/mainNewsSites')
-const nyt = require('./scripts/webscraping/nyt');
+const googlesearching = require('./scripts/webscraping/googlesearching');
 
 async function mainfunc()
 {
 	await mainNewsSites.addMainNewsSites();
-	
-	console.log("Title Thing: " + await nyt.getFirstArticleTitle('https://www.nytimes.com/search?query=hoho'));
+
+	console.log("Yourl: " + await googlesearching.generateGoogleSearchUrl('bbc.com', 'Bruh Stinky\n Yep'));
 }
 
 (async () => {
 	mainfunc();
 })();
 
-},{"./scripts/ui/mainNewsSites":137,"./scripts/webscraping/nyt":140}],2:[function(require,module,exports){
+},{"./scripts/ui/mainNewsSites":137,"./scripts/webscraping/googlesearching":140}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23940,20 +23940,19 @@ async function getArticleTitle(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getFirstArticleTitle = getFirstArticleTitle;
-var _axios = _interopRequireDefault(require("axios"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const cheerio = require('cheerio');
-async function getFirstArticleTitle(url) {
-  url = 'https://cors-anywhere.herokuapp.com/' + url;
-  let firstArticleTitle;
-  const axiosResponse = await _axios.default.get(url).then(response => {
-    const $ = cheerio.load(response.data);
-    firstArticleTitle = $.html('div.app');
-  }).catch(error => {
-    console.error('Error fetching the page:', error);
-  });
-  return firstArticleTitle;
+exports.generateGoogleSearchUrl = generateGoogleSearchUrl;
+async function generateGoogleSearchUrl(siteName, articleTitle) {
+  let newTitleA = '' + articleTitle.replaceAll(' ', '+');
+  let newTitleB = '';
+  for (let i = 0; i < newTitleA.length; i++) {
+    if (newTitleA.charAt(i).match(/[a-zA-Z0-9\+]/i)) {
+      newTitleB += newTitleA.charAt(i);
+    }
+  }
+  let ret = 'https://www.google.com/search?q=';
+  ret += siteName;
+  ret += '+' + newTitleB;
+  return ret;
 }
 
-},{"axios":2,"cheerio":58}]},{},[1]);
+},{}]},{},[1]);
