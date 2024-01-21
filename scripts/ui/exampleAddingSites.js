@@ -2,6 +2,7 @@
 const uistuff = require('./uistuff')
 const articlestuff = require('./../webscraping/articlestuff')
 
+
 async function thing()
 {
 	const a = uistuff.createNewNewsite("Site A");
