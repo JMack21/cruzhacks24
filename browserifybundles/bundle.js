@@ -1,14 +1,12 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
-const mainNewsSites = require('./scripts/ui/mainNewsSites')
+const mainNewsSites = require('./scripts/ui/mainNewsSites');
+const articlestuff = require('./scripts/webscraping/articlestuff');
 const googlesearching = require('./scripts/webscraping/googlesearching');
+const uistuff = require('./scripts/ui/uistuff');
 
 async function mainfunc()
 {
-	await mainNewsSites.addMainNewsSites();
-
-	console.log("weeeeeeeeee");
-
 	chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
 	{
 		let u = tabs[0].url;
@@ -16,19 +14,26 @@ async function mainfunc()
 		onGottenPageUrl(u);
 	});
 
-	// console.log("Yourl: " + await googlesearching.generateGoogleSearchUrl('bbc.com', 'Bruh Stinky\n Yep'));
 }
 
 async function onGottenPageUrl(theUrl)
 {
-	console.log("weyEah: " + theUrl);
+	// await mainNewsSites.addMainNewsSites();
+
+	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
+
+	console.log("testign thignndnkdasgfdsa");
+
+	const a = uistuff.createNewNewsite("ExampleSiteA");
+	uistuff.addBiasLineToNewsite(a, "images/bias_far_left.png", "Far Left Leaning");
+	uistuff.addArticleToNewsite(a, "https://jrgraphix.net/", "TestArticle", "Jan 1, 2000");
 }
 
 (async () => {
 	mainfunc();
 })();
 
-},{"./scripts/ui/mainNewsSites":137,"./scripts/webscraping/googlesearching":140}],2:[function(require,module,exports){
+},{"./scripts/ui/mainNewsSites":137,"./scripts/ui/uistuff":138,"./scripts/webscraping/articlestuff":139,"./scripts/webscraping/googlesearching":140}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23963,7 +23968,7 @@ async function generateGoogleSearchUrl(siteName, articleTitle) {
       newTitleB += newTitleA.charAt(i);
     }
   }
-  let ret = 'https://www.google.com/search?q=';
+  let ret = 'https://www.bing.com/search?q=';
   ret += siteName;
   ret += '+' + newTitleB;
   return ret;

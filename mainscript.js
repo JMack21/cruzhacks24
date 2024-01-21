@@ -2,14 +2,10 @@
 const mainNewsSites = require('./scripts/ui/mainNewsSites');
 const articlestuff = require('./scripts/webscraping/articlestuff');
 const googlesearching = require('./scripts/webscraping/googlesearching');
+const uistuff = require('./scripts/ui/uistuff');
 
 async function mainfunc()
 {
-	await mainNewsSites.addMainNewsSites();
-
-	console.log("weeeeeeeeee");
-	googlesearching.generateGoogleSearchUrl();
-
 	chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
 	{
 		let u = tabs[0].url;
@@ -17,12 +13,17 @@ async function mainfunc()
 		onGottenPageUrl(u);
 	});
 
-	// console.log("Yourl: " + await googlesearching.generateGoogleSearchUrl('bbc.com', 'Bruh Stinky\n Yep'));
 }
 
 async function onGottenPageUrl(theUrl)
 {
-	console.log("weyEah: " + theUrl);
+	// await mainNewsSites.addMainNewsSites();
+
+	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
+
+	const a = uistuff.createNewNewsite("ExampleSiteA");
+	uistuff.addBiasLineToNewsite(a, "images/bias_far_left.png", "Far Left Leaning");
+	uistuff.addArticleToNewsite(a, "https://jrgraphix.net/", "TestArticle", "Jan 1, 2000");
 }
 
 (async () => {
