@@ -5,7 +5,7 @@
 	"main": "mainScript.js",
 	"scripts":
 	{
-		"build": "browserify mainScript.js -o compiled_scripts/browserify_compiled_bundle.js"
+		"build": "browserify mainScript.js -p esmify > compiled_scripts/browserify_compiled_bundle.js"
 	},
 	"author": "PlaceholderAuthor",
 	"license": "MIT",
