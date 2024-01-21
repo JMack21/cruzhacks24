@@ -1,13 +1,10 @@
-
-const exampleAddingSites = require('./scripts/ui/exampleAddingSites')
+const mainNewsSites = require('./scripts/webscraping/googlesearch.js')
 
 async function mainfunc()
 {
-	console.log('mainfunc() is working');
-	await exampleAddingSites.thing();
-	console.log('mainfunc() after got');
+    await mainNewsSites.getGoogleSearchResults();
 }
 
 (async () => {
-	mainfunc();
+    mainfunc();
 })();
