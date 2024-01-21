@@ -24115,10 +24115,10 @@ function FindName(url) {
     if (address.includes("eng.kavkaz-uzel.eu")) {
       return "caucasianknot";
     }
-    let cumasscuzjason = address.indexOf("://");
-    cumasscuzjason = cumasscuzjason + 2;
-    //console.log(address.substring(cumasscuzjason + 1, cumasscuzjason + 4));
-    if (address.substring(cumasscuzjason + 1, cumasscuzjason + 4) == "www") {
+    let addressThing = address.indexOf("://");
+    addressThing = addressThing + 2;
+    //console.log(address.substring(addressThing + 1, addressThing + 4));
+    if (address.substring(addressThing + 1, addressThing + 4) == "www") {
       while (Pcount < 2) {
         if (address[iter] == ".") {
           Pcount = Pcount + 1;
@@ -24133,7 +24133,7 @@ function FindName(url) {
       name = address.substring(first + 1, second);
     } else {
       first = address.indexOf(".");
-      name = address.substring(cumasscuzjason + 1, first);
+      name = address.substring(addressThing + 1, first);
     }
     console.log(name);
     return name;
