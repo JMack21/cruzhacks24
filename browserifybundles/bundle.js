@@ -1,19 +1,17 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
-const exampleAddingSites = require('./scripts/ui/exampleAddingSites')
+const mainNewsSites = require('./scripts/ui/mainNewsSites')
 
 async function mainfunc()
 {
-	console.log('mainfunc() is working');
-	await exampleAddingSites.thing();
-	console.log('mainfunc() after got');
+	await mainNewsSites.addMainNewsSites();
 }
 
 (async () => {
 	mainfunc();
 })();
 
-},{"./scripts/ui/exampleAddingSites":137}],2:[function(require,module,exports){
+},{"./scripts/ui/mainNewsSites":137}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23816,17 +23814,20 @@ var _default = exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.thing = thing;
+exports.addMainNewsSites = addMainNewsSites;
 const uistuff = require('./uistuff');
 const articlestuff = require('./../webscraping/articlestuff');
-async function thing() {
-  const a = uistuff.createNewNewsite("Site A");
-  uistuff.addBiasLineToNewsite(a, "images/bias_left.png", "Left Leaning");
-  uistuff.addArticleToNewsite(a, "https://jrgraphix.net/", "JRGraphix Thing", "Jan 1, 2000");
-  const nyt = uistuff.createNewNewsite("New York Times");
-  uistuff.addBiasLineToNewsite(nyt, "images/bias_left.png", "Slight Left Leaning");
-  const hampshire = 'https://www.nytimes.com/2024/01/20/us/politics/trump-new-hampshire-haley.html';
-  uistuff.addArticleToNewsite(nyt, hampshire, await articlestuff.getArticleTitle(hampshire), "Jho 52, 3099");
+async function addMainNewsSites() {
+  const farLeft = uistuff.createNewNewsite("FarLeftSite");
+  uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
+  const slightLeft = uistuff.createNewNewsite("SlightLeftSite");
+  uistuff.addBiasLineToNewsite(slightLeft, "images/bias_slight_left.png", "Slight Left Leaning");
+  const centrist = uistuff.createNewNewsite("CentristSite");
+  uistuff.addBiasLineToNewsite(centrist, "images/bias_centrist.png", "Mainly Centrist");
+  const slightRight = uistuff.createNewNewsite("SlightRightSite");
+  uistuff.addBiasLineToNewsite(slightRight, "images/bias_slight_right.png", "Slight Right Leaning");
+  const farRight = uistuff.createNewNewsite("FarRightSite");
+  uistuff.addBiasLineToNewsite(farRight, "images/bias_far_right.png", "Far Right Leaning");
 }
 
 },{"./../webscraping/articlestuff":139,"./uistuff":138}],138:[function(require,module,exports){

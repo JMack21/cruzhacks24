@@ -1,11 +1,9 @@
 
-const exampleAddingSites = require('./scripts/ui/exampleAddingSites')
+const mainNewsSites = require('./scripts/ui/mainNewsSites')
 
 async function mainfunc()
 {
-	console.log('mainfunc() is working');
-	await exampleAddingSites.thing();
-	console.log('mainfunc() after got');
+	await mainNewsSites.addMainNewsSites();
 }
 
 (async () => {

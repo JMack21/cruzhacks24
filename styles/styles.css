@@ -21,6 +21,12 @@
 	--yellow1: #f5a201;
 	--yellow2: #ffba42;
 	--yellow3: #a69577;
+
+	--pol-far-left: #1207A3;
+	--pol-slight-left: #8F88D2;
+	--pol-centrist: #DCE8ED;
+	--pol-slight-right: #DB7A7B;
+	--pol-far-right: #BB0103;
 }
 
 body
