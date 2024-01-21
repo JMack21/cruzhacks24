@@ -152,4 +152,4 @@ getHTML().then((res) => {
 
 */
 
-export { PoliticalStance };
+export { PoliticalStance, getUrl };

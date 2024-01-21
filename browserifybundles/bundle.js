@@ -31,16 +31,17 @@ async function onGottenPageUrl(theUrl)
 	const currArticleStance = stance.PoliticalStance(currArticleName);
 
 	let currArticleStanceImg;
-	if (currArticleStance == 'Left') { currArticleStanceImg = 'images/bias_far_left.png'; }
-	else if (currArticleStance == 'Right') { currArticleStanceImg = 'images/bias_far_right.png';}
-	else if (currArticleStance == 'Left Centrist') { currArticleStanceImg = 'images/bias_slight_left.png';}
-	else if (currArticleStance == 'Right Centrist') { currArticleStanceImg = 'images/bias_slight_right.png';}
-	else if (currArticleStance == 'Centrist') { currArticleStanceImg = 'images/bias_centrist.png';}
+	let currArticleStanceStr;
+	if (currArticleStance == 'Left') { currArticleStanceImg = 'images/bias_far_left.png'; currArticleStanceStr = 'Far Left Leaning'; }
+	else if (currArticleStance == 'Right') { currArticleStanceImg = 'images/bias_far_right.png'; currArticleStanceStr = 'Far Right Leaning'; }
+	else if (currArticleStance == 'Left Centrist') { currArticleStanceImg = 'images/bias_slight_left.png'; currArticleStanceStr = 'Slight Left Leaning'; }
+	else if (currArticleStance == 'Right Centrist') { currArticleStanceImg = 'images/bias_slight_right.png'; currArticleStanceStr = 'Slight Right Leaning'; }
+	else if (currArticleStance == 'Centrist') { currArticleStanceImg = 'images/bias_centrist.png'; currArticleStanceStr = 'Mainly Centrist'; }
 
-	const currArticle = uistuff.createNewNewsite(currArticleName);
-	uistuff.addBiasLineToNewsite(currArticle, currArticleStanceImg, currArticleStance);
+	const currArticle = uistuff.createNewNewsite('(Current Site)');
+	uistuff.addBiasLineToNewsite(currArticle, currArticleStanceImg, currArticleStanceStr);
 
-	/*
+	///*
 	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
@@ -56,7 +57,7 @@ async function onGottenPageUrl(theUrl)
 	const farRight = uistuff.createNewNewsite("Fox News");
 	uistuff.addBiasLineToNewsite(farRight, "images/bias_far_right.png", "Far Right Leaning");
 
-	let sites = [[farLeft, 'vice.com'], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, 'reason.com'], [farRight, 'foxnews.com']];
+	let sites = [[currArticle, stance.getUrl(currArticleName)], [farLeft, 'vice.com'], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, 'reason.com'], [farRight, 'foxnews.com']];
 
 	for (let i = 0; i < sites.length; i++)
 	{
@@ -75,7 +76,7 @@ async function onGottenPageUrl(theUrl)
 
 		await new Promise(r => setTimeout(r, 500));
 	}
-	*/
+	//*/
 }
 
 (async () => {
@@ -24117,6 +24118,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PoliticalStance = PoliticalStance;
+exports.getUrl = getUrl;
 function PoliticalStance(source) {
   const PoliLean = {
     cnn: "Left Centrist",
