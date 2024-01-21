@@ -24001,17 +24001,22 @@ async function getGoogleSearchResults(siteName, articleTitle) {
     // Extract links from the search results
     const $ = cheerio.load(response.data);
     const links = [];
-    $('cite').each((index, element) => {
-      const link = $(element).text();
-      //if (/*link && !link.startsWith('#') && */(link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
-      links.push(link);
-      //}
+    $('a').each((index, element) => {
+      const link = $(element).attr('href');
+      if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName))) && !link.includes(link)) {
+        links.push(link);
+      }
     });
     // Return the first few links
     const numberOfLinks = 3; // Adjust this number as needed
     //console.log("Length of links:", links.length)
     //console.log('First few links from search result:', links[0], links[1], links[2]);
-    return links /*.slice(0, numberOfLinks)*/;
+    let sublist = links.slice(0, numberOfLinks * 2);
+    let everyOtherOne = [];
+    for (let i = 0; i < sublist.length; i += 2) {
+      everyOtherOne.push(sublist[i]);
+    }
+    return everyOtherOne;
   } catch (error) {
     console.error('Error fetching search results:', error.message);
     //return [];
