@@ -89,3 +89,5 @@ function addArticleToNewsite(site, articleUrl, articleTitle, articleDate)
 		.querySelector('.list-of-articles-div')
 		.appendChild(article);
 }
+
+export { createNewNewsite, addBiasLineToNewsite, addArticleToNewsite };

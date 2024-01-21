@@ -1,6 +1,9 @@
 
 function mainFunc()
 {
+	alert("pebis");
+
+	/*
 	const a = createNewNewsite("Site A");
 	addBiasLineToNewsite(a, "images/bias_left.png", "Left Leaning");
 	addArticleToNewsite(a, "https://jrgraphix.net/", "JRGraphix Thing", "Jan 1, 2000");
@@ -51,6 +54,7 @@ function mainFunc()
 	addArticleToNewsite(e, "https://jrgraphix.net/", "JRGraphix Thing", "Jan 1, 2000");
 	addArticleToNewsite(e, "https://jrgraphix.net/", "JRGraphix Thing", "Jan 1, 2000");
 	addArticleToNewsite(e, "https://jrgraphix.net/", "JRGraphix Thing", "Jan 1, 2000");
+	*/
 }
 
 mainFunc();

@@ -1,6 +1,21 @@
 {
-  "dependencies": {
-    "axios": "^1.6.5",
-    "cheerio": "^1.0.0-rc.12"
-  }
+	"name": "banana-bulletin",
+	"version": "0.1.0",
+	"description": "Placeholder description",
+	"main": "mainScript.js",
+	"scripts":
+	{
+		"build": "browserify mainScript.js -o compiled_scripts/browserify_compiled_bundle.js"
+	},
+	"author": "PlaceholderAuthor",
+	"license": "MIT",
+	"dependencies":
+	{
+		"axios": "^1.6.5",
+		"cheerio": "^1.0.0-rc.12"
+	},
+	"devDependencies":
+	{
+		"browserify": "^17.0.0"
+	}
 }
