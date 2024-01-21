@@ -7,8 +7,8 @@ async function mainfunc()
 {
 	await mainNewsSites.addMainNewsSites();
 
-	console.log("weeeeeeeeee");
-	googlesearching.generateGoogleSearchUrl();
+	//console.log("weeeeeeeeee");
+	//googlesearching.generateGoogleSearchUrl();
 
 	chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
 	{
