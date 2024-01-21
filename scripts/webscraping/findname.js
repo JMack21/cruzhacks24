@@ -42,3 +42,5 @@ function FindName(url) {
   
   //console.log(FindName("https://reason.com/"));
   
+export { FindName };
+  

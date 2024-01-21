@@ -1,7 +1,7 @@
 function PoliticalStance(source) {
     const PoliLean = {
       cnn: "Left Centrist",
-      fox: "Right",
+      foxnews: "Right",
       nytimes: "Left Centrist",
       bbc: "Centrist",
       aljazeera: "Left Centrist",
@@ -14,31 +14,31 @@ function PoliticalStance(source) {
       vox: "Left",
       vice: "Left",
       cnbc: "Left Centrist",
-      sky: "Left Centrists",
-      usatoday: "Left Centrists",
-      timesofindia: "Right Centric",
+      sky: "Left Centrist",
+      usatoday: "Left Centrist",
+      timesofindia: "Right Centrist",
       buzzfeednews: "Left",
-      bloomberg: "Left Centric",
-      forbes: "Centric",
-      reuters: "Centric",
+      bloomberg: "Left Centrist",
+      forbes: "Centrist",
+      reuters: "Centrist",
       breitbart: "Right",
       dailymail: "Right",
-      reason: "Right Centric", //check
+      reason: "Right Centrist", //check
       spectator: "Right", //check
       dailywire: "Right",
       //international sides
       palestinechronicle: "Left",
-      timesofisrael: "Left Centric",
+      timesofisrael: "Left Centrist",
       ukrainianweek: "Undefined",
       caucasianknot: "Undefined",
       afp: "Left",
       rabwah: "Undefiend",
       newssearch: "Undefined",
-      tehrantimes: "Right Centric",
+      tehrantimes: "Right Centrist",
       iraqinews: "Right",
-      deutschland: "Centric",
+      deutschland: "Centrist",
       tokyoreporter: "Undefined",
-      koreatimes: "Left Centric",
+      koreatimes: "Left Centrist",
     };
     if(source != "Undefined"){
       let article = source.toLowerCase();
@@ -151,3 +151,5 @@ getHTML().then((res) => {
 });
 
 */
+
+export { PoliticalStance };

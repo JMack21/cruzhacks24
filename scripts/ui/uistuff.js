@@ -74,10 +74,10 @@ function addArticleToNewsite(site, articleUrl, articleTitle, articleDate)
 				article_a_artdiv_title.innerHTML = articleTitle;
 				article_a_artdiv.appendChild(article_a_artdiv_title);
 
-				const article_a_artdiv_date = document.createElement('p');
-				article_a_artdiv_date.classList.add("article-date");
-				article_a_artdiv_date.innerHTML = articleDate;
-				article_a_artdiv.appendChild(article_a_artdiv_date);
+				// const article_a_artdiv_date = document.createElement('p');
+				// article_a_artdiv_date.classList.add("article-date");
+				// article_a_artdiv_date.innerHTML = articleDate;
+				// article_a_artdiv.appendChild(article_a_artdiv_date);
 
 			article_a.appendChild(article_a_artdiv);
 		

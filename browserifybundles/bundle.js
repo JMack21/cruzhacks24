@@ -5,6 +5,8 @@ const articlestuff = require('./scripts/webscraping/articlestuff');
 const googlesearching = require('./scripts/webscraping/googlesearching');
 const uistuff = require('./scripts/ui/uistuff');
 const googlesearch = require('./scripts/webscraping/googlesearch');
+const findname = require('./scripts/webscraping/findname');
+const stance = require('./scripts/webscraping/stance');
 
 async function mainfunc()
 {
@@ -25,6 +27,20 @@ async function onGottenPageUrl(theUrl)
 
 	await new Promise(r => setTimeout(r, 100));
 
+	const currArticleName = findname.FindName(theUrl);
+	const currArticleStance = stance.PoliticalStance(currArticleName);
+
+	let currArticleStanceImg;
+	if (currArticleStance == 'Left') { currArticleStanceImg = 'images/bias_far_left.png'; }
+	else if (currArticleStance == 'Right') { currArticleStanceImg = 'images/bias_far_right.png';}
+	else if (currArticleStance == 'Left Centrist') { currArticleStanceImg = 'images/bias_slight_left.png';}
+	else if (currArticleStance == 'Right Centrist') { currArticleStanceImg = 'images/bias_slight_right.png';}
+	else if (currArticleStance == 'Centrist') { currArticleStanceImg = 'images/bias_centrist.png';}
+
+	const currArticle = uistuff.createNewNewsite(currArticleName);
+	uistuff.addBiasLineToNewsite(currArticle, currArticleStanceImg, currArticleStance);
+
+	/*
 	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
@@ -59,12 +75,13 @@ async function onGottenPageUrl(theUrl)
 
 		await new Promise(r => setTimeout(r, 500));
 	}
+	*/
 }
 
 (async () => {
     mainfunc();
 })();
-},{"./scripts/ui/mainNewsSites":137,"./scripts/ui/uistuff":138,"./scripts/webscraping/articlestuff":139,"./scripts/webscraping/googlesearch":140,"./scripts/webscraping/googlesearching":141}],2:[function(require,module,exports){
+},{"./scripts/ui/mainNewsSites":137,"./scripts/ui/uistuff":138,"./scripts/webscraping/articlestuff":139,"./scripts/webscraping/findname":140,"./scripts/webscraping/googlesearch":141,"./scripts/webscraping/googlesearching":142,"./scripts/webscraping/stance":143}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23943,10 +23960,12 @@ function addArticleToNewsite(site, articleUrl, articleTitle, articleDate) {
   const article_a_artdiv_title = document.createElement('h3');
   article_a_artdiv_title.innerHTML = articleTitle;
   article_a_artdiv.appendChild(article_a_artdiv_title);
-  const article_a_artdiv_date = document.createElement('p');
-  article_a_artdiv_date.classList.add("article-date");
-  article_a_artdiv_date.innerHTML = articleDate;
-  article_a_artdiv.appendChild(article_a_artdiv_date);
+
+  // const article_a_artdiv_date = document.createElement('p');
+  // article_a_artdiv_date.classList.add("article-date");
+  // article_a_artdiv_date.innerHTML = articleDate;
+  // article_a_artdiv.appendChild(article_a_artdiv_date);
+
   article_a.appendChild(article_a_artdiv);
   article.appendChild(article_a);
   site.querySelector('.list-of-articles-dropdown-container').querySelector('.list-of-articles-dropdown').querySelector('.list-of-articles-div').appendChild(article);
@@ -23990,6 +24009,53 @@ async function getArticleTitle(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.FindName = FindName;
+function FindName(url) {
+  if (url != "Undefined") {
+    let address = url;
+    let iter = 0;
+    let Pcount = 0;
+    let first = -1;
+    let second = -1;
+    let name = "";
+    if (address.includes("eng.kavkaz-uzel.eu")) {
+      return "caucasianknot";
+    }
+    let cumasscuzjason = address.indexOf("://");
+    cumasscuzjason = cumasscuzjason + 2;
+    //console.log(address.substring(cumasscuzjason + 1, cumasscuzjason + 4));
+    if (address.substring(cumasscuzjason + 1, cumasscuzjason + 4) == "www") {
+      while (Pcount < 2) {
+        if (address[iter] == ".") {
+          Pcount = Pcount + 1;
+          if (first > 0) {
+            second = iter;
+          } else {
+            first = iter;
+          }
+        }
+        iter = iter + 1;
+      }
+      name = address.substring(first + 1, second);
+    } else {
+      first = address.indexOf(".");
+      name = address.substring(cumasscuzjason + 1, first);
+    }
+    console.log(name);
+    return name;
+  } else {
+    return "Undefined";
+  }
+}
+
+//console.log(FindName("https://reason.com/"));
+
+},{}],141:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.getGoogleSearchResults = getGoogleSearchResults;
 var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -24003,7 +24069,7 @@ async function getGoogleSearchResults(siteName, articleTitle) {
     const links = [];
     $('a').each((index, element) => {
       const link = $(element).attr('href');
-      if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName))) && !link.includes(link)) {
+      if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
         links.push(link);
       }
     });
@@ -24023,7 +24089,7 @@ async function getGoogleSearchResults(siteName, articleTitle) {
   }
 }
 
-},{"./googlesearching":141,"axios":2,"cheerio":58}],141:[function(require,module,exports){
+},{"./googlesearching":142,"axios":2,"cheerio":58}],142:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24043,5 +24109,167 @@ async function generateGoogleSearchUrl(siteName, articleTitle) {
   ret += '+' + newTitleB;
   return ret;
 }
+
+},{}],143:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PoliticalStance = PoliticalStance;
+function PoliticalStance(source) {
+  const PoliLean = {
+    cnn: "Left Centrist",
+    foxnews: "Right",
+    nytimes: "Left Centrist",
+    bbc: "Centrist",
+    aljazeera: "Left Centrist",
+    wsj: "Centrist",
+    washingtonpost: "Left Centrist",
+    npr: "Left Centrist",
+    apnews: "Left Centrist",
+    cbs: "Left Centrist",
+    abc: "Left Centrist",
+    //check
+    vox: "Left",
+    vice: "Left",
+    cnbc: "Left Centrist",
+    sky: "Left Centrist",
+    usatoday: "Left Centrist",
+    timesofindia: "Right Centrist",
+    buzzfeednews: "Left",
+    bloomberg: "Left Centrist",
+    forbes: "Centrist",
+    reuters: "Centrist",
+    breitbart: "Right",
+    dailymail: "Right",
+    reason: "Right Centrist",
+    //check
+    spectator: "Right",
+    //check
+    dailywire: "Right",
+    //international sides
+    palestinechronicle: "Left",
+    timesofisrael: "Left Centrist",
+    ukrainianweek: "Undefined",
+    caucasianknot: "Undefined",
+    afp: "Left",
+    rabwah: "Undefiend",
+    newssearch: "Undefined",
+    tehrantimes: "Right Centrist",
+    iraqinews: "Right",
+    deutschland: "Centrist",
+    tokyoreporter: "Undefined",
+    koreatimes: "Left Centrist"
+  };
+  if (source != "Undefined") {
+    let article = source.toLowerCase();
+    article = article.replaceAll(" ", "");
+    console.log(article);
+    return PoliLean[article];
+    //meow
+  } else {
+    return "Undefined";
+  }
+}
+function getUrl(name) {
+  const siteName = {
+    cnn: "cnn.com",
+    fox: "foxnews.com",
+    nytimes: "nytimes.com",
+    bbc: "bbc.com",
+    aljazeera: "aljazeera.com",
+    wsj: "wsj.com",
+    washingtonpost: "washingtonpost.com",
+    npr: "npr.org",
+    apnews: "apnews.com",
+    cbs: "cbs.com",
+    abc: "abc.com",
+    //check
+    vox: "vox.com",
+    vice: "vice.com",
+    cnbc: "cnbc.com",
+    sky: "sky.com",
+    usatoday: "usatoday.com",
+    indiatimes: "indiatimes.com",
+    buzzfeednews: "buzzfeednews.com",
+    bloomberg: "bloomberg.com",
+    forbes: "forbes.com",
+    reuters: "reuters.com",
+    breitbart: "breitbart.com",
+    dailymail: "dailymail.co.uk",
+    reason: "reason.com",
+    //check
+    spectator: "spectator.co.uk",
+    //check
+    dailywire: "dailywire.com",
+    //international
+    palestinechronicle: "palestinechronicle.com",
+    timesofisrael: "timesofisrael.com",
+    ukrainianweek: "ukrainianweek.com",
+    caucasianknot: "eng.kavkaz-uzel.eu",
+    afp: "afp.com",
+    rabwah: "rabwah.net",
+    newssearch: "newssearch.chinadaily.com",
+    tehrantimes: "tehrantimes.com",
+    iraqinews: "iraqinews.com",
+    deutschland: "deutschland.de",
+    tokyoreporter: "tokyoreporter.com",
+    koreatimes: "koreatimes.co.kr"
+  };
+  if (name != "Undefined") {
+    name = name.toLowerCase();
+    name = name.replaceAll(" ", "");
+    let addi = siteName[name];
+    return addi;
+  } else {
+    return "Undefined";
+  }
+}
+
+//console.log(PoliticalStance('Buzz Fee d'));
+
+// Random Stuff
+
+/*
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+
+fetch('https://www.nytimes.com/2024/01/20/us/affirmative-action-ban-college-essays.html?unlocked_article_code=1.PE0.qcil.bExfo4awyRa7&smid=url-share')
+    .then(function (response) {
+        return response.text();
+    })
+    .then(function (html) {
+        // Load HTML in Cheerio
+        const $ = cheerio.load(html);
+        
+        // Use `title` as a selector and extract
+        // the text using the `text()` method
+        console.log($('body').text())
+    })
+    .catch(function (err) {
+        console.log('Failed to fetch page: ', err);
+    });
+
+
+----------------------
+const url = 'https://www.allsides.com/media-bias/ratings';
+
+const BigData = {};
+
+async function getHTML() {
+    const { data: html} = await axios.get(url);
+    return html;
+};
+
+getHTML().then((res) => {
+    const $ = cheerio.load(res);
+    $('').each((i, name) => {
+        const title = $(name).find('title').text(); 
+    })
+});
+
+*/
 
 },{}]},{},[1]);

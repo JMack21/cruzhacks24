@@ -4,6 +4,8 @@ const articlestuff = require('./scripts/webscraping/articlestuff');
 const googlesearching = require('./scripts/webscraping/googlesearching');
 const uistuff = require('./scripts/ui/uistuff');
 const googlesearch = require('./scripts/webscraping/googlesearch');
+const findname = require('./scripts/webscraping/findname');
+const stance = require('./scripts/webscraping/stance');
 
 async function mainfunc()
 {
@@ -24,6 +26,20 @@ async function onGottenPageUrl(theUrl)
 
 	await new Promise(r => setTimeout(r, 100));
 
+	const currArticleName = findname.FindName(theUrl);
+	const currArticleStance = stance.PoliticalStance(currArticleName);
+
+	let currArticleStanceImg;
+	if (currArticleStance == 'Left') { currArticleStanceImg = 'images/bias_far_left.png'; }
+	else if (currArticleStance == 'Right') { currArticleStanceImg = 'images/bias_far_right.png';}
+	else if (currArticleStance == 'Left Centrist') { currArticleStanceImg = 'images/bias_slight_left.png';}
+	else if (currArticleStance == 'Right Centrist') { currArticleStanceImg = 'images/bias_slight_right.png';}
+	else if (currArticleStance == 'Centrist') { currArticleStanceImg = 'images/bias_centrist.png';}
+
+	const currArticle = uistuff.createNewNewsite(currArticleName);
+	uistuff.addBiasLineToNewsite(currArticle, currArticleStanceImg, currArticleStance);
+
+	/*
 	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
@@ -58,6 +74,7 @@ async function onGottenPageUrl(theUrl)
 
 		await new Promise(r => setTimeout(r, 500));
 	}
+	*/
 }
 
 (async () => {
