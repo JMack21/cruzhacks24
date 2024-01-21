@@ -9,7 +9,7 @@ async function generateGoogleSearchUrl(siteName, articleTitle)
 		{ newTitleB += newTitleA.charAt(i); }
 	}
 
-	let ret = 'https://www.bing.com/search?q=';
+	let ret = 'https://www.bing.com/search?q=site:';
 	ret += siteName;
 	ret += '+' + newTitleB;
 	return ret;

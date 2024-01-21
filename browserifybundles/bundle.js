@@ -18,29 +18,29 @@ async function mainfunc()
 
 async function onGottenPageUrl(theUrl)
 {
-	await new Promise(r => setTimeout(r, 5000));
+	await new Promise(r => setTimeout(r, 100));
 
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
 	console.log('Article Title Maybe: ' + subjArticleTitle);
 
-	await new Promise(r => setTimeout(r, 5000));
+	await new Promise(r => setTimeout(r, 100));
 
-	const farLeft = uistuff.createNewNewsite("FarLeftSite");
+	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
 	const slightLeft = uistuff.createNewNewsite("New York Times");
 	uistuff.addBiasLineToNewsite(slightLeft, "images/bias_slight_left.png", "Slight Left Leaning");
 
-	const centrist = uistuff.createNewNewsite("Big British Company");
+	const centrist = uistuff.createNewNewsite("BBC");
 	uistuff.addBiasLineToNewsite(centrist, "images/bias_centrist.png", "Mainly Centrist");
 
-	const slightRight = uistuff.createNewNewsite("SlightRightSite");
+	const slightRight = uistuff.createNewNewsite("Reason");
 	uistuff.addBiasLineToNewsite(slightRight, "images/bias_slight_right.png", "Slight Right Leaning");
 
-	const farRight = uistuff.createNewNewsite("FarRightSite");
+	const farRight = uistuff.createNewNewsite("Fox News");
 	uistuff.addBiasLineToNewsite(farRight, "images/bias_far_right.png", "Far Right Leaning");
 
-	let sites = [[farLeft, ''], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, ''], [farRight, '']];
+	let sites = [[farLeft, 'vice.com'], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, 'reason.com'], [farRight, 'foxnews.com']];
 
 	for (let i = 0; i < sites.length; i++)
 	{
@@ -24001,17 +24001,17 @@ async function getGoogleSearchResults(siteName, articleTitle) {
     // Extract links from the search results
     const $ = cheerio.load(response.data);
     const links = [];
-    $('a').each((index, element) => {
-      const link = $(element).attr('href');
-      if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
-        links.push(link);
-      }
+    $('cite').each((index, element) => {
+      const link = $(element).text();
+      //if (/*link && !link.startsWith('#') && */(link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
+      links.push(link);
+      //}
     });
     // Return the first few links
     const numberOfLinks = 3; // Adjust this number as needed
     //console.log("Length of links:", links.length)
     //console.log('First few links from search result:', links[0], links[1], links[2]);
-    return links.slice(0, numberOfLinks);
+    return links /*.slice(0, numberOfLinks)*/;
   } catch (error) {
     console.error('Error fetching search results:', error.message);
     //return [];
@@ -24033,7 +24033,7 @@ async function generateGoogleSearchUrl(siteName, articleTitle) {
       newTitleB += newTitleA.charAt(i);
     }
   }
-  let ret = 'https://www.bing.com/search?q=';
+  let ret = 'https://www.bing.com/search?q=site:';
   ret += siteName;
   ret += '+' + newTitleB;
   return ret;

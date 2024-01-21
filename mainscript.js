@@ -17,29 +17,29 @@ async function mainfunc()
 
 async function onGottenPageUrl(theUrl)
 {
-	await new Promise(r => setTimeout(r, 5000));
+	await new Promise(r => setTimeout(r, 100));
 
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
 	console.log('Article Title Maybe: ' + subjArticleTitle);
 
-	await new Promise(r => setTimeout(r, 5000));
+	await new Promise(r => setTimeout(r, 100));
 
-	const farLeft = uistuff.createNewNewsite("FarLeftSite");
+	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
 	const slightLeft = uistuff.createNewNewsite("New York Times");
 	uistuff.addBiasLineToNewsite(slightLeft, "images/bias_slight_left.png", "Slight Left Leaning");
 
-	const centrist = uistuff.createNewNewsite("Big British Company");
+	const centrist = uistuff.createNewNewsite("BBC");
 	uistuff.addBiasLineToNewsite(centrist, "images/bias_centrist.png", "Mainly Centrist");
 
-	const slightRight = uistuff.createNewNewsite("SlightRightSite");
+	const slightRight = uistuff.createNewNewsite("Reason");
 	uistuff.addBiasLineToNewsite(slightRight, "images/bias_slight_right.png", "Slight Right Leaning");
 
-	const farRight = uistuff.createNewNewsite("FarRightSite");
+	const farRight = uistuff.createNewNewsite("Fox News");
 	uistuff.addBiasLineToNewsite(farRight, "images/bias_far_right.png", "Far Right Leaning");
 
-	let sites = [[farLeft, ''], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, ''], [farRight, '']];
+	let sites = [[farLeft, 'vice.com'], [slightLeft, 'nytimes.com'], [centrist, 'bbc.com'], [slightRight, 'reason.com'], [farRight, 'foxnews.com']];
 
 	for (let i = 0; i < sites.length; i++)
 	{

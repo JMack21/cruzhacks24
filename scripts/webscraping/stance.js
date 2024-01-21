@@ -55,7 +55,7 @@ function PoliticalStance(source) {
   function getUrl(name) {
     const siteName = {
       cnn: "cnn.com",
-      fox: "fox.com",
+      fox: "foxnews.com",
       nytimes: "nytimes.com",
       bbc: "bbc.com",
       aljazeera: "aljazeera.com",
