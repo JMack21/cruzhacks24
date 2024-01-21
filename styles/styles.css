@@ -220,11 +220,16 @@ h2
 h3
 {
 	font-size: 10px;
+
+	line-height: 10px;
+	padding-top: var(--small-padding);
 }
 
 .article-type, .article-date
 {
 	margin-top: var(--article-inverse-padding);
+
+	padding-top: var(--small-padding);
 
 	font-size: 7px;
 	color: var(--yellow3);

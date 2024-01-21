@@ -23826,10 +23826,7 @@ async function thing() {
   const nyt = uistuff.createNewNewsite("New York Times");
   uistuff.addBiasLineToNewsite(nyt, "images/bias_left.png", "Slight Left Leaning");
   const hampshire = 'https://www.nytimes.com/2024/01/20/us/politics/trump-new-hampshire-haley.html';
-  const hmpTitle = await articlestuff.getArticleTitle(hampshire);
-  console.log('fsdljkkldjfakldjafs');
-  console.log('Hampshir Titl: ' + hmpTitle);
-  uistuff.addArticleToNewsite(nyt, hampshire, hmpTitle, "Jho 52, 3099");
+  uistuff.addArticleToNewsite(nyt, hampshire, await articlestuff.getArticleTitle(hampshire), "Jho 52, 3099");
 }
 
 },{"./../webscraping/articlestuff":139,"./uistuff":138}],138:[function(require,module,exports){
