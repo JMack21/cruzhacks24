@@ -22,8 +22,6 @@ async function onGottenPageUrl(theUrl)
 
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
 
-	console.log("testign thignndnkdasgfdsa");
-
 	const a = uistuff.createNewNewsite("ExampleSiteA");
 	uistuff.addBiasLineToNewsite(a, "images/bias_far_left.png", "Far Left Leaning");
 	uistuff.addArticleToNewsite(a, "https://jrgraphix.net/", "TestArticle", "Jan 1, 2000");
