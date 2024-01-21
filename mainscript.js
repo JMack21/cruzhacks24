@@ -27,5 +27,5 @@ async function onGottenPageUrl(theUrl)
 }
 
 (async () => {
-	mainfunc();
+    mainfunc();
 })();
