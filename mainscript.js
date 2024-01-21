@@ -6,6 +6,7 @@ const uistuff = require('./scripts/ui/uistuff');
 const googlesearch = require('./scripts/webscraping/googlesearch');
 const findname = require('./scripts/webscraping/findname');
 const stance = require('./scripts/webscraping/stance');
+const country = require('./scripts/webscraping/country');
 
 async function mainfunc()
 {
@@ -40,7 +41,6 @@ async function onGottenPageUrl(theUrl)
 	const currArticle = uistuff.createNewNewsite('(Current Site)');
 	uistuff.addBiasLineToNewsite(currArticle, currArticleStanceImg, currArticleStanceStr);
 
-	///*
 	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
@@ -75,7 +75,6 @@ async function onGottenPageUrl(theUrl)
 
 		await new Promise(r => setTimeout(r, 500));
 	}
-	//*/
 }
 
 (async () => {

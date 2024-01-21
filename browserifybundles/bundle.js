@@ -7,6 +7,7 @@ const uistuff = require('./scripts/ui/uistuff');
 const googlesearch = require('./scripts/webscraping/googlesearch');
 const findname = require('./scripts/webscraping/findname');
 const stance = require('./scripts/webscraping/stance');
+const country = require('./scripts/webscraping/country');
 
 async function mainfunc()
 {
@@ -41,7 +42,6 @@ async function onGottenPageUrl(theUrl)
 	const currArticle = uistuff.createNewNewsite('(Current Site)');
 	uistuff.addBiasLineToNewsite(currArticle, currArticleStanceImg, currArticleStanceStr);
 
-	///*
 	const farLeft = uistuff.createNewNewsite("Vice News");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
@@ -76,13 +76,12 @@ async function onGottenPageUrl(theUrl)
 
 		await new Promise(r => setTimeout(r, 500));
 	}
-	//*/
 }
 
 (async () => {
     mainfunc();
 })();
-},{"./scripts/ui/mainNewsSites":137,"./scripts/ui/uistuff":138,"./scripts/webscraping/articlestuff":139,"./scripts/webscraping/findname":140,"./scripts/webscraping/googlesearch":141,"./scripts/webscraping/googlesearching":142,"./scripts/webscraping/stance":143}],2:[function(require,module,exports){
+},{"./scripts/ui/mainNewsSites":137,"./scripts/ui/uistuff":138,"./scripts/webscraping/articlestuff":139,"./scripts/webscraping/country":140,"./scripts/webscraping/findname":141,"./scripts/webscraping/googlesearch":142,"./scripts/webscraping/googlesearching":143,"./scripts/webscraping/stance":144}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24010,6 +24009,100 @@ async function getArticleTitle(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.CountryKeyWord = CountryKeyWord;
+function CountryKeyWord(head) {
+  const nationality = {
+    american: "america",
+    palestinian: "palestine",
+    israeli: "israel",
+    ukraine: "ukrainian",
+    russian: "russia",
+    english: "england",
+    british: "england",
+    french: "france",
+    indian: "india",
+    pakistani: "pakistan",
+    chinese: "china",
+    iranian: "iran",
+    iraqi: "iraq",
+    german: "germany",
+    japanese: "japan",
+    korean: "korea"
+  };
+  let country = {
+    america: false,
+    palestine: false,
+    israel: false,
+    ukraine: false,
+    russia: false,
+    england: false,
+    france: false,
+    india: false,
+    pakistan: false,
+    china: false,
+    iran: false,
+    iraq: false,
+    germany: false,
+    japan: false,
+    korea: false
+  };
+  const websites = {
+    america: "https://www.nytimes.com/search?query=",
+    palestine: "https://www.palestinechronicle.com/?s=",
+    israel: "https://www.timesofisrael.com/search/?q=",
+    ukraine: "https://ukrainianweek.com/?s=",
+    russia: "https://eng.kavkaz-uzel.eu/search?context=article&keywords=",
+    england: "https://www.bbc.com/search?q=",
+    france: "https://www.afp.com/en/search/results/",
+    india: "https://timesofindia.indiatimes.com/topic/",
+    pakistan: "https://www.rabwah.net/?s=",
+    china: "https://newssearch.chinadaily.com.cn/en/search?query=",
+    iran: "https://www.tehrantimes.com/search?lang=en&l=&a=0&q=",
+    iraq: "https://www.iraqinews.com/?s=",
+    germany: "https://www.deutschland.de/en/search?keys=",
+    japan: "https://www.tokyoreporter.com/?s=",
+    korea: "https://www.koreatimes.co.kr/www2/common/search.asp?kwd="
+  };
+  let title = head.toLowerCase();
+  for (key in nationality) {
+    if (title.includes(key)) {
+      country[nationality[key]] = true;
+    }
+  }
+  for (key in country) {
+    //console.log(key);
+    if (title.includes(key)) {
+      country[key] = true;
+      //console.log(key);
+    }
+  }
+
+  //array
+  const links = [];
+  let count = 0;
+  for (key in country) {
+    if (country[key] == true) {
+      console.log(key);
+      links[count] = key;
+      count = count + 1;
+      links[count] = websites[key];
+      count = count + 1;
+    }
+  }
+  if (count == 0) {
+    return "Undefined";
+  }
+  console.log(links);
+  return links;
+  //country['america'] = true;
+}
+
+},{}],141:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.FindName = FindName;
 function FindName(url) {
   if (url != "Undefined") {
@@ -24051,7 +24144,7 @@ function FindName(url) {
 
 //console.log(FindName("https://reason.com/"));
 
-},{}],141:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24090,7 +24183,7 @@ async function getGoogleSearchResults(siteName, articleTitle) {
   }
 }
 
-},{"./googlesearching":142,"axios":2,"cheerio":58}],142:[function(require,module,exports){
+},{"./googlesearching":143,"axios":2,"cheerio":58}],143:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24111,7 +24204,7 @@ async function generateGoogleSearchUrl(siteName, articleTitle) {
   return ret;
 }
 
-},{}],143:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

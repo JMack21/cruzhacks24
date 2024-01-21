@@ -91,3 +91,5 @@ function CountryKeyWord(head){
     return links;
     //country['america'] = true;
 }
+
+export { CountryKeyWord };
