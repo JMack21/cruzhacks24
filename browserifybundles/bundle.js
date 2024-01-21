@@ -21,6 +21,8 @@ async function onGottenPageUrl(theUrl)
 {
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
 
+	await new Promise(r => setTimeout(r, 5000));
+
 	const farLeft = uistuff.createNewNewsite("FarLeftSite");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
@@ -23992,11 +23994,14 @@ async function getGoogleSearchResults(siteName, articleTitle) {
     // Extract links from the search results
     const $ = cheerio.load(response.data);
     const links = [];
-    $('a').each((index, element) => {
+    $('a').each(async function (index, element) {
       const link = $(element).attr('href');
       if (link && !link.startsWith('#') && (link.includes("https://www.".concat(siteName)) || link.includes("https://".concat(siteName)))) {
         links.push(link);
       }
+      console.log('before promise');
+      await new Promise(r => setTimeout(r, 500));
+      console.log('after promise');
     });
     // Return the first few links
     const numberOfLinks = 3; // Adjust this number as needed

@@ -20,6 +20,8 @@ async function onGottenPageUrl(theUrl)
 {
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
 
+	await new Promise(r => setTimeout(r, 5000));
+
 	const farLeft = uistuff.createNewNewsite("FarLeftSite");
 	uistuff.addBiasLineToNewsite(farLeft, "images/bias_far_left.png", "Far Left Leaning");
 
