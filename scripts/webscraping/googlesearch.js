@@ -1,11 +1,11 @@
 import axios from 'axios';
 const cheerio = require('cheerio');
-const googleSearching = require('./scripts/webscraping/googlesearching');
+const googleSearching = require('./googlesearching');
 
 async function getGoogleSearchResults(siteName, articleTitle) {
     try {
 
-      const response = await axios.get(`https://cors-anywhere.herokuapp.com/`.concat(googleSearching.generateGoogleSearchUrl(siteName, articleTitle)));
+      const response = await axios.get(`https://cors-anywhere.herokuapp.com/`.concat(await googleSearching.generateGoogleSearchUrl(siteName, articleTitle)));
       // Extract links from the search results
       const $ = cheerio.load(response.data);
       const links = [];
