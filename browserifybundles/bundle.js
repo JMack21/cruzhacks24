@@ -11,7 +11,6 @@ async function mainfunc()
 	chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
 	{
 		let u = tabs[0].url;
-		console.log("bronk: " + u);
 		onGottenPageUrl(u);
 	});
 
@@ -19,7 +18,10 @@ async function mainfunc()
 
 async function onGottenPageUrl(theUrl)
 {
+	await new Promise(r => setTimeout(r, 5000));
+
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
+	console.log('Article Title Maybe: ' + subjArticleTitle);
 
 	await new Promise(r => setTimeout(r, 5000));
 

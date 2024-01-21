@@ -10,7 +10,6 @@ async function mainfunc()
 	chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs =>
 	{
 		let u = tabs[0].url;
-		console.log("bronk: " + u);
 		onGottenPageUrl(u);
 	});
 
@@ -18,7 +17,10 @@ async function mainfunc()
 
 async function onGottenPageUrl(theUrl)
 {
+	await new Promise(r => setTimeout(r, 5000));
+
 	const subjArticleTitle = await articlestuff.getArticleTitle(theUrl);
+	console.log('Article Title Maybe: ' + subjArticleTitle);
 
 	await new Promise(r => setTimeout(r, 5000));
 
@@ -46,10 +48,14 @@ async function onGottenPageUrl(theUrl)
 
 		let searchResults = await googlesearch.getGoogleSearchResults(siteStr, subjArticleTitle);
 		console.log(searchResults);
+		await new Promise(r => setTimeout(r, 500));
+
 		for (let j = 0; j < searchResults.length; j++)
 		{
 			uistuff.addArticleToNewsite(siteElm, searchResults[j], await articlestuff.getArticleTitle(searchResults[j]), 'Jan 0, 0000');
 		}
+
+		await new Promise(r => setTimeout(r, 500));
 	}
 }
 
