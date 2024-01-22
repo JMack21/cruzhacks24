@@ -2,6 +2,7 @@
 ## _Broadened perspectives on news_
 
 Banana Bulletin is a browser-extension that, upon visiting a news article, recommends users a broad range of articles from *other* publications on the same topic. It provides statistics on each recommended publication's political learning, and additionally recommends region-specific news articles. The intent is to broaden user's perspectives, and be more aware of the political bias that is present in their consumption of news. 
+# [Product Pitch](https://docs.google.com/presentation/d/1RwCTT6aOG-9v8TgdM5efBjtgP5vhDCHcF1eZqiKp4Sw/edit?usp=sharing)
 ## Developers
 * [Jason Mack](https://www.linkedin.com/in/jason-mack-89308225b/)
 * [Bill Mularski](https://www.linkedin.com/in/william-mularski-597a71245/) 
